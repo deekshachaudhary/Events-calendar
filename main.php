@@ -292,7 +292,7 @@ echo $_SESSION['username'];
                                 //          $(this).find('#event_name').val(),
                                 //          $(this).find('#description').val());
                                     
-                                    console.log($event_name);
+                                    console.log($event_id);
                                     $("#viewEventId").val($event_id);
                                     $("#viewEventDate").val($eventMonth + '/' + $eventDay + '/' + $eventYear);
                                     $("#viewEventTime").val($eventTime);
@@ -362,12 +362,12 @@ echo $_SESSION['username'];
         
         
         function editEvent() {
+                                    
             $viewEventId = $("#viewEventId").val();
             $viewEventName = $("#viewEventName").val();
             $viewEventDate = $("#viewEventDate").val();
             $viewEventTime = $("#viewEventTime").val();
             $viewEventDescription = $("#viewEventDescription").val();
-            
             if($viewEventName !== "" && $viewEventDescription !== "") {
                 var date = $viewEventDate.split('/');
                 $viewEventMonth = parseInt(date[0]) - 1;
@@ -379,7 +379,7 @@ echo $_SESSION['username'];
                    event_day: $viewEventDay,
                    event_time: $viewEventTime,
                    event_name: $viewEventName,
-                   event_description: $viewEventDescription}
+                   event_description: $viewEventDescription};
                 $.ajax({
                    url: 'editEvent.php',
                    type: 'post',
@@ -406,8 +406,10 @@ echo $_SESSION['username'];
             $viewEventId = $("#viewEventId").val();
             $viewEventName = $("#viewEventName").val();
             $viewEventDate = $("#viewEventDate").val();
-            console.log($viewEventId);
+            console.log("Id:" +$viewEventId);
+            //var dataArray = {event_id: $viewEventId};
             var dataArray = {event_id: $viewEventId};
+            
             $.ajax({
                url: 'deleteEvent.php',
                 type: 'post',
