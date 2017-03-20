@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weather Widget</title>	
+<link rel = "stylesheet" type = "text/css" href = "weather.css">
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", fetchWeather, false);
+	
+	function fetchWeather() {
+		var xmlHttp = new XMLHttpRequest();
+		var weatherServer = "http://classes.engineering.wustl.edu/cse330/content/weather_json.php";
+		xmlHttp.open("GET", weatherServer, true);
+		xmlHttp.addEventListener("load", ajaxCallback, false);
+		xmlHttp.send(null);		
+	}
+	
+	function ajaxCallback(event){
+		var jsonData = JSON.parse(event.target.responseText);
+		
+		var locationEl = document.getElementById("weather-loc-id");
+		var humidityEl = document.getElementById("weather-humidity-id");
+		var tempEl = document.getElementById("weather-temp-id");
+		var tomorrowEl = document.getElementById("weather-tomorrow-id");
+		var dayafterEl = document.getElementById("weather-dayaftertomorrow-id");		
+		
+		var jsonCity = jsonData.location.city;
+		var jsonState = jsonData.location.state;
+		var jsonHumidity = jsonData.atmosphere.humidity;
+		var jsonTemp = jsonData.current.temp;
+		var jsonTomorrowCode = jsonData.tomorrow.code;
+		var jsonDayAfterCode = jsonData.dayafter.code;
+		
+		var imageFirstPart = "http://us.yimg.com/i/us/nws/weather/gr/";
+		var imageSecondPart = "ds.png";
+		
+		console.log("City: " +jsonCity);
+		console.log("State: " +jsonState);
+		console.log("Humidity: " +jsonHumidity);
+		console.log("Temp: " +jsonTemp);
+		console.log("TomCode: " +jsonTomorrowCode);
+		console.log("DayAftercode: " +jsonDayAfterCode);
+		
+		locationEl.innerHTML = "<strong>" +jsonCity+ ",</strong>" +jsonState;
+		humidityEl.innerHTML = jsonHumidity;
+		tempEl.innerHTML = jsonTemp;
+		tomorrowEl.src = imageFirstPart + jsonTomorrowCode + imageSecondPart;
+		dayafterEl.src = imageFirstPart + jsonDayAfterCode + imageSecondPart;
+		console.log(tomorrowEl.src);
+		console.log(dayafterEl.src);
+	}
+</script>
+
+</head>
+<body>
+<div class="weather" id="weatherWidget">
+	<div id="weather-loc-id" class="weather-loc"></div>
+	<div id="weather-humidity-id" class="weather-humidity"></div>
+	<div id="weather-temp-id" class="weather-temp"></div>
+	<img id="weather-tomorrow-id" class="weather-tomorrow" />
+	<img id="weather-dayaftertomorrow-id" class="weather-dayaftertomorrow" />
+</div>
+	<p><button onclick="fetchWeather()">Refresh</button></p>
+</body>
+</html>

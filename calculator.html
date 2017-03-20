@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head><title>Calculator</title>
+
+<script type="text/javascript">
+
+function checkOperation(){
+    var firstnumberinput = document.getElementById('firstnumberinput').value;
+    var secondnumberinput = document.getElementById('secondnumberinput').value;
+    var operation_radio_pointers = document.getElementsByName("operation");
+    var which_operation;
+    var result;
+    for(var i = 0; i < operation_radio_pointers.length; i++){
+        if(operation_radio_pointers[i].checked) {
+            which_operation = operation_radio_pointers[i].value;
+            console.log(which_operation);
+            break;
+        }
+    }
+    
+    if(which_operation === "add") {
+        result = parseInt(firstnumberinput) + parseInt(secondnumberinput);
+        //alert("Sum is: " +result);
+    }
+    else if(which_operation === "subtract") {
+        result = parseInt(firstnumberinput) - parseInt(secondnumberinput);
+        //alert("Difference is: " +result);
+    }
+    else if(which_operation === "multiply") {
+        result = parseInt(firstnumberinput) * parseInt(secondnumberinput);
+        //alert("Product is: " +result);
+    }
+    else if(which_operation === "divide") {
+        result = parseInt(firstnumberinput) / parseInt(secondnumberinput);
+        //alert("Result of division is: " +result);
+    }
+
+	if(firstnumberinput.length > 0 && secondnumberinput > 0) {
+		document.getElementById("result").innerHTML = result;
+	}
+}    
+</script>
+
+</head>
+<body>
+
+<form>
+    <p>
+		<label for="firstnumberinput">First Number:</label>
+		<input type="number" step="0.01" name="firstnumber" id="firstnumberinput" />
+	</p>
+	<p>
+		<label for="secondnumberinput">Second Number:</label>
+		<input type="number" step="0.01"name="secondnumber" id="secondnumberinput" />
+	</p>
+	<p>
+		<strong>Operation:</strong>
+		<input type="radio" name="operation" value="add" id="addinput" />
+		<label for="addinput">Add</label> &nbsp;
+ 		
+		<input type="radio" name="operation" value="subtract" id="subtractinput" />
+                <label for="subtractinput">Subtract</label> &nbsp;
+ 		
+		<input type="radio" name="operation" value="multiply" id="multiplyinput" />
+                <label for="multiplyinput">Multiply</label> &nbsp;
+ 		
+		<input type="radio" name="operation" value="divide" id="divideinput" />
+                <label for="divideinput">Divide</label> &nbsp;
+	</p>
+	<p>
+		<!--<input type="submit" value="Calculate" />-->
+		<input type="reset" />
+	</p>
+	
+	<p id="result"></p>
+	
+</form>
+
+<script>
+    document.getElementById("firstnumberinput").
+        addEventListener("change", checkOperation, false);
+    document.getElementById("secondnumberinput").
+        addEventListener("change", checkOperation, false);
+    document.getElementById("addinput").
+        addEventListener("click", checkOperation, false);
+    document.getElementById("subtractinput").
+        addEventListener("click", checkOperation, false);
+    document.getElementById("multiplyinput").
+        addEventListener("click", checkOperation, false);
+    document.getElementById("divideinput").
+        addEventListener("click", checkOperation, false);
+        
+</script>
+
+</body>
+</html>
